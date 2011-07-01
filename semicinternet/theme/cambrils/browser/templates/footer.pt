@@ -1,0 +1,9 @@
+<div id="portal-footer" metal:define-macro="portal_footer" i18n:domain="plone" tal:define="hp_view context/@@hp_view">
+<p>
+    <acronym title="Copyright">&copy;</acronym>
+    <span tal:define="now modules/DateTime/DateTime"
+          tal:content="now/year"></span>
+    <!-- <div tal:content="python:hp_view.getFooterCopyright()"> </div> -->
+    <a href="http://www.semicinternet.com" target="_blank">SEMIC Internet</a>
+</p>
+</div>

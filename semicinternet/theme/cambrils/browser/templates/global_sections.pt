@@ -1,0 +1,51 @@
+<tal:tabs tal:condition="view/portal_tabs"
+          tal:define="hp_view context/@@hp_view"
+          i18n:domain="plone">
+    <div id="menuhead">
+      <ul>
+        <tal:tabs tal:repeat="tab view/portal_tabs">
+        <li tal:define="klass python:view.selected_portal_tab==tab['id'] and 'selected' or 'plain'"
+            tal:attributes="id string:portaltab-${tab/id};
+                               class python:repeat['tab'].end and 'lastItem ' + klass or klass">
+            <a href="" 
+               tal:content="tab/name"
+               tal:attributes="href tab/url;
+                               title tab/description|nothing">Tab Name</a></li></tal:tabs>
+      </ul>
+    </div>
+
+    <div tal:define="slideshow_images python:hp_view.getSlideshowImageItems('slideshow')"
+         tal:condition="python:slideshow_images == False">
+         <img src="slideshow-no-images.png" />
+    </div>
+    
+    <div tal:define="slideshow_images python:hp_view.getSlideshowImages('slideshow')"
+         tal:condition="slideshow_images"
+         id="slideshow">
+      <div class="scrollable">      
+        <div class="items">
+          <div class="item"
+               tal:repeat="image slideshow_images">
+            <img tal:replace="structure image/tag" />
+          </div>
+        </div>
+      </div>
+      <div class="navi">
+        <div tal:repeat="image slideshow_images"
+ 	     tal:omit-tag="">
+          <div tal:omit-tag=""
+               tal:define="image_number repeat/image/number">
+            <a href="#1"
+               class="active"
+               tal:condition="python:image_number == 1"></a>
+            <a href="#2"
+               tal:attributes="href string:#$image_number"
+               tal:condition="python:image_number != 1"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+</tal:tabs>
